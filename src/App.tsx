@@ -1,18 +1,22 @@
 import React from "react";
-import { space, width, fontSize, color } from "styled-system";
-import styled from "styled-components";
+import { Switch, Route } from "react-router-dom";
+
+
+import Header from './components/Header';
+import posts from "./pages/posts";
+import Albums from "./pages/albums";
 
 const App = (): JSX.Element => {
   return (
-    <Box bg="green" fontSize={24} width={200} p={20} m="50px auto" color ='white'>
-      Test Project
-    </Box>
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={posts} />
+        <Route exact path ="/albums" component ={Albums} />
+
+      </Switch>
+    </div>
   );
 };
-const Box = styled.div`
-  ${space}
-  ${width}
-  ${fontSize}
-  ${color}
-`;
+
 export default App;
