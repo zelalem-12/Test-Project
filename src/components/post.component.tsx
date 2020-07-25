@@ -2,23 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-interface Post{
+interface PostType{
     id: number;
     title: string;
     body: string
 }
 
-const Post =(props: Post) => {
+const Post: React.FC<PostType> = ({id, title, body}) => {
 
-    const handleCLick =(e: any): void => {
+    const handleCLick = (e: React.FormEvent<HTMLInputElement>): void => {
         e.preventDefault();
-        console.log(`I am moving to the this post detail, ${props.id}`)
+        console.log(`I am moving to the this post detail, ${id}`)
 
     }
     return (
         <PostWrapper onClick={handleCLick} >
-            <h4>{props.title}</h4>
-            <p>{props.body}</p>
+            <h4>{title}</h4>
+            <p>{body}</p>
         </PostWrapper >
     )
 }

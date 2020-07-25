@@ -1,14 +1,34 @@
 import * as POSTCONSTANT from '../constants/post-constant';
 
+interface PostType {
+  userId: number,
+  id: number,
+  title: string
+}
 
-const listPosts = (state = { posts: [] }, action) => {
+interface PostListStateType {
+  loading?: boolean,
+  posts?: PostType[],
+  error?: string
+}
+const listPosts = (state: PostListStateType = { posts: [] }, action): PostListStateType => {
   switch (action.type) {
     case POSTCONSTANT.POST_LIST_REQUEST:
-      return { loading: true };
+      return { 
+          ...state,
+          loading: true 
+      };
     case POSTCONSTANT.POST_LIST_SUCCESS:
-      return { loading: false, posts: action.payload };
+      return { 
+          ...state,
+          loading: false, 
+          posts: action.payload
+       };
     case POSTCONSTANT.POST_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return { 
+          loading: false, 
+          error: action.payload 
+      };
     default:
       return state;
   }

@@ -7,7 +7,6 @@ import configureStore from "./redux/store";
 
 const store = configureStore();
 
-
 ReactDOM.render(
   <Provider store = {store}>
     <Router>

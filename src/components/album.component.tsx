@@ -3,23 +3,23 @@ import styled from 'styled-components';
 import Albums from '../pages/albums';
 
 
-interface Album{
+interface AlbumType{
     userId: number,
     id: number,
     title: string
 };
 
-const Album = (props: Album) => {
+const Album: React.FC<AlbumType> = ({userId, id, title}) => {
 
-    const handleCLick = (e: any): void => {
+    const handleCLick = (e: React.FormEvent<HTMLInputElement>): void => {
         e.preventDefault();
-        console.log(`I am moving to the this album detail, ${props.id}`)
+        console.log(`I am moving to the this album detail, ${id}`)
 
     }
     return (
         <AlbumWrapper onClick={handleCLick} >
-            <h4>{props.title}</h4>
-            <p>Owned by{props.userId}</p>
+            <h4>{title}</h4>
+            <p>Owned by{userId}</p>
         </AlbumWrapper >
     )
 }

@@ -1,13 +1,36 @@
 import * as ALBUMCONSTANT from "../constants/album.constant";
 
-const listAlbums = (state = { albums: [] }, action) => {
+interface AlbumType {
+  userId: number,
+  id: number,
+  title: string
+}
+
+interface AlbumListStateType {
+  loading?: boolean,
+  albums?: AlbumType[],
+  error?: string
+}
+
+const listAlbums = (state: AlbumListStateType = { albums: [], }, action): AlbumListStateType => {
   switch (action.type) {
     case ALBUMCONSTANT.ALBUM_LIST_REQUEST:
-      return { loading: true };
+      return { 
+        ...state,
+        loading: true 
+      };
     case ALBUMCONSTANT.ALBUM_LIST_SUCCESS:
-      return { loading: false, albums: action.payload };
+      return { 
+          ...state,
+          loading: false,
+          albums: action.payload 
+      };
     case ALBUMCONSTANT.ALBUM_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return {
+          ...state,
+            loading: false,
+            error: action.payload
+         };
     default:
       return state;
   }

@@ -6,7 +6,7 @@ import Header from './components/Header';
 import posts from "./pages/posts";
 import Albums from "./pages/albums";
 
-const App = (): JSX.Element => {
+const App: React.FC = () => {
   return (
     <div>
       <Header />

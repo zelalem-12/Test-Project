@@ -4,16 +4,23 @@ import Album from '../components/album.component';
 import { requestAlbumList } from '../redux/actions/album-action'
 import styled from 'styled-components';
 
-interface AlbumsType {
+interface ALbumType {
     userId: number,
     id: number,
-    title: string
+    title: string,
+    key?: string | number
+}
+interface AlbumListStateType {
+    loading?: boolean,
+    albums?: [ALbumType],
+    error?: string
+
 };
 
 
-const Albums = (): JSX.Element => {
+const Albums: React.FC = () => {
     
-    const albumList = useSelector(state => state.albumList);
+    const albumList: AlbumListStateType  = useSelector(state => state.albumList);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,7 +31,7 @@ const Albums = (): JSX.Element => {
         <AlbumsWrapper>
             {
                 albumList.loading ? (<h2>...Loading</h2>) :
-                    albumList.albums.map((album: AlbumsType): JSX.Element => (
+                    albumList.albums.map((album: ALbumType): React.ReactNode => (
                         <Album key={album.id} {...album} />
                     ))
             }

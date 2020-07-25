@@ -4,7 +4,7 @@ import { watchFetchPosts } from "./post-saga";
 import { watchFetchAlbums} from './album-saga'
 
 
-export default function* rootSaga() {
+export default function* rootSaga(): IterableIterator<Object> {
     yield all([
         watchFetchPosts(),
         watchFetchAlbums()

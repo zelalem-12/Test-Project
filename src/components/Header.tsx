@@ -4,12 +4,18 @@ import styled from 'styled-components';
 import {color, fontSize, space} from 'styled-system';
 
 
-const Header = (): JSX.Element => {
+const Header: React.FC = () => {
     return (
       <Wrapper color="black" fontSize={18} mb={20}>
         <div>Test Project</div>
-        <NavLink to="/">Posts</NavLink>
-        <NavLink to="/albums">Albums</NavLink>
+        <NavLink exact activeStyle={{
+          fontWeight: "bold",
+          color: "#07e4d5"
+        }} to="/">Posts</NavLink>
+        <NavLink activeStyle={{
+          fontWeight: "bold",
+          color: "#07e4d5"
+        }} to="/albums">Albums</NavLink>
       </Wrapper>
     );
 };

@@ -1,16 +1,35 @@
 import * as POSTCONSTANT from '../constants/post-constant';
 
-const requestPostList = () => ({
+interface PostType {
+  id: number;
+  title: string;
+  body: string
+}
+interface RequestType {
+  type: string,
+}
+interface ErrorType {
+  type: string,
+  payload: string
+}
+interface PostListActionType {
+  type: string,
+  payload: PostType[]
+}
+
+
+const requestPostList = (): RequestType => ({
   type: POSTCONSTANT.POST_LIST_REQUEST,
 });
-const setPostList = posts => ({
+const setPostList = (posts: PostType[]): PostListActionType => ({
   type: POSTCONSTANT.POST_LIST_SUCCESS,
   payload: posts,
 });
-const setPostListError = error => ({
+const setPostListError = (error: string): ErrorType => ({
   type: POSTCONSTANT.POST_LIST_FAIL,
   payload : error
 });
+
 
 
 const requestPostDetail = () => ({
