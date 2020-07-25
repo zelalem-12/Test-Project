@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
 import Album from '../components/album.component';
+import { requestAlbumList } from '../redux/actions/album-action'
 import styled from 'styled-components';
 
 interface AlbumsType {
@@ -10,22 +12,22 @@ interface AlbumsType {
 
 
 const Albums = (): JSX.Element => {
-    const [albums, setAlbums] = useState<AlbumsType[]>([])
-
+    
+    const albumList = useSelector(state => state.albumList);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/albums')
-            .then(response => response.json())
-            .then(posts => setAlbums(posts))
+        dispatch(requestAlbumList())
     }, []);
+
     return (
         <AlbumsWrapper>
             {
-                albums.map((album: AlbumsType): JSX.Element => (
-                    <Album key={album.id}   {...album} />)
-                )
+                albumList.loading ? (<h2>...Loading</h2>) :
+                    albumList.albums.map((album: AlbumsType): JSX.Element => (
+                        <Album key={album.id} {...album} />
+                    ))
             }
-
         </AlbumsWrapper>
     )
 };

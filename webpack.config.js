@@ -2,9 +2,9 @@ const path = require("path");
 
 const rules = [
   {
-    test: /\.(js|tsx?)/,
+    test: /\.(js|ts|tsx?)/,
     exclude: /node_modules/,
-    loader: "babel-loader",
+    loader: "babel-loader"
   },
 ];
 

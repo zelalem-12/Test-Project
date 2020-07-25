@@ -1,6 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import Post from '../components/post.component';
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+
 import styled from 'styled-components';
+import { requestPostList } from '../redux/actions/post-action'
+import Post from '../components/post.component';
 
 interface PostType  {
     id: number;
@@ -10,24 +13,25 @@ interface PostType  {
 
 
 const posts = (): JSX.Element => {
-    const [posts, setPosts] = useState<PostType[]>([])
 
+    const postList = useSelector(state => state.postList);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(response => response.json())
-            .then(posts => setPosts(posts))
+        dispatch(requestPostList())
     }, []);
-    return (
-        <PostsWrapper>
-            {
-                posts.map((post: PostType): JSX.Element => (
-                    <Post key={post.id}   {...post} />)
-                )
-            }
 
-        </PostsWrapper>
-    )
+ 
+    return (
+      <PostsWrapper>
+          {
+        postList.loading? (<h2>...Loading</h2>):
+            postList.posts.map( (post: PostType): JSX.Element => (
+            <Post key={post.id} {...post} />
+          ))
+        }
+      </PostsWrapper>
+    );
 };
 
 export default posts;
