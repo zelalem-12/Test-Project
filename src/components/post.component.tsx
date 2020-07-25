@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
+import { withRouter, RouteComponentProps} from 'react-router-dom'
+import posts from '../pages/posts';
 
 
 interface PostType{
     id: number;
     title: string;
-    body: string
+    body: string,
 }
 
-const Post: React.FC<PostType> = ({id, title, body}) => {
 
-    const handleCLick = (e: React.FormEvent<HTMLInputElement>): void => {
+const Post: React.FC<RouteComponentProps<{}> &  PostType> = ({id, title, body,history}) => {
+
+    const handleCLick = (e: React.MouseEvent<HTMLInputElement>): void => {
         e.preventDefault();
-        console.log(`I am moving to the this post detail, ${id}`)
-
+         history.push(`/posts/${id}`)
     }
+
     return (
         <PostWrapper onClick={handleCLick} >
             <h4>{title}</h4>
@@ -23,7 +26,7 @@ const Post: React.FC<PostType> = ({id, title, body}) => {
     )
 }
 
-export default Post;
+export default withRouter(Post);
 
 
 const PostWrapper = styled.div`

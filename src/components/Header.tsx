@@ -11,7 +11,7 @@ const Header: React.FC = () => {
         <NavLink exact activeStyle={{
           fontWeight: "bold",
           color: "#07e4d5"
-        }} to="/">Posts</NavLink>
+        }} to="/posts">Posts</NavLink>
         
         <NavLink activeStyle={{
           fontWeight: "bold",   

@@ -1,4 +1,4 @@
-import { put, call, takeEvery} from 'redux-saga/effects';
+import { put, call, takeLatest, takeEvery} from 'redux-saga/effects';
 
 import * as API from '../../api'
 import * as postAction from '../actions/post-action';
@@ -6,6 +6,7 @@ import * as POSTCONSTANT from '../constants/post-constant';
 import { getErrorMessage } from '../../services';
 
 interface PostType {
+  userId: number,
   id: number;
   title: string;
   body: string
@@ -21,5 +22,21 @@ function* fetchPosts(): IterableIterator<Object> {
 }
 
 export function* watchFetchPosts(): IterableIterator <Object> {
-         yield takeEvery(POSTCONSTANT.POST_LIST_REQUEST, fetchPosts);
+         yield takeLatest(POSTCONSTANT.POST_LIST_REQUEST, fetchPosts);
        }
+
+
+
+function* fetchPost({ payload }): IterableIterator<Object> {
+  try {
+    const post: PostType = yield call(API.fetchData, `posts/${payload}`);
+    yield put(postAction.setPostDetail(post));
+  }
+  catch (error) {
+    yield put(postAction.setPostDetailError(getErrorMessage(error)));
+  }
+}
+
+export function* watchFetchPost(): IterableIterator<Object> {
+  yield takeLatest(POSTCONSTANT.POST_DETAILS_REQUEST, fetchPost);
+}

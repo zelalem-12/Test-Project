@@ -11,6 +11,14 @@ interface PostListStateType {
   posts?: PostType[],
   error?: string
 }
+
+interface PostDetailStateType {
+  loading?: boolean,
+  post?: PostType,
+  error?: string
+}
+
+
 const listPosts = (state: PostListStateType = { posts: [] }, action): PostListStateType => {
   switch (action.type) {
     case POSTCONSTANT.POST_LIST_REQUEST:
@@ -35,15 +43,26 @@ const listPosts = (state: PostListStateType = { posts: [] }, action): PostListSt
 };
 
 
-const postDetail = (state = { product: { } }, action) => {
+const postDetail = (state: PostDetailStateType = {}, action): PostDetailStateType => {
     switch(action.type){
         case POSTCONSTANT.POST_DETAILS_REQUEST:
-            return {loading: true};
+            return {
+              ...state,
+              loading: true
+            };
         case POSTCONSTANT.POST_DETAILS_SUCCESS:
-            return { loading: false, product: action.payload};
+            return {
+              ...state,
+               loading: false,
+              post: action.payload,
+              };
         case POSTCONSTANT.POST_DETAILS_FAIL:
-            return { loading: false, error: action.payload };
-        default: return state;
+            return {
+               loading: false, 
+               error: action.payload
+              };
+        default:
+           return state;
     }
 };
 
