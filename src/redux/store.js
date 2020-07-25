@@ -3,7 +3,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import * as postReducer from "./reducers/post-reducer";
 import * as albumReducer from "./reducers/album-reducer";
-
+import * as todoReducer from "./reducers/todo-reducer";
 
 import rootSaga from "./sagas";
 
@@ -13,7 +13,9 @@ const rootReducer = combineReducers({
   postAdd: postReducer.addPost,
   postDelete: postReducer.deletePost,
 
-  albumList: albumReducer.listAlbums
+  albumList: albumReducer.listAlbums,
+  
+  todoList: todoReducer.listTodos
 
 
 });

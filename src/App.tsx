@@ -3,17 +3,18 @@ import { Switch, Route } from "react-router-dom";
 
 
 import Header from './components/Header';
-import posts from "./pages/posts";
+import Posts from "./pages/posts";
 import Albums from "./pages/albums";
+import Todos from './pages/todos';
 
 const App: React.FC = () => {
   return (
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" component={posts} />
+        <Route exact path="/" component={Posts} />
         <Route exact path ="/albums" component ={Albums} />
-
+        <Route exact path="/todos" component={Todos} />
       </Switch>
     </div>
   );

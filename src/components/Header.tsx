@@ -12,10 +12,16 @@ const Header: React.FC = () => {
           fontWeight: "bold",
           color: "#07e4d5"
         }} to="/">Posts</NavLink>
+        
+        <NavLink activeStyle={{
+          fontWeight: "bold",   
+          color: "#07e4d5"
+        }} to="/albums">Albums</NavLink>
+
         <NavLink activeStyle={{
           fontWeight: "bold",
           color: "#07e4d5"
-        }} to="/albums">Albums</NavLink>
+        }} to="/todos">Todos</NavLink>
       </Wrapper>
     );
 };

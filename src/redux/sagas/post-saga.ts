@@ -16,7 +16,7 @@ function* fetchPosts(): IterableIterator<Object> {
     yield put(postAction.setPostList(posts));
   } 
   catch (error) {
-    yield put(postAction.setAddPostError(getErrorMessage(error)));
+    yield put(postAction.setPostListError(getErrorMessage(error)));
   }
 }
 
