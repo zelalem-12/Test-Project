@@ -18,11 +18,10 @@ interface PostListActionType {
   type: string,
   payload: PostType[]
 }
-interface PostDetailActionType {
+interface PostActionType {
   type: string,
   payload: PostType
 }
-
 
 const requestPostList = (): RequestType => ({
   type: POSTCONSTANT.POST_LIST_REQUEST,
@@ -40,7 +39,7 @@ const requestPostDetail = (postId: number): RequestType => ({
   type: POSTCONSTANT.POST_DETAILS_REQUEST,
   payload: postId
 })
-const setPostDetail = (post: PostType): PostDetailActionType => ({
+const setPostDetail = (post: PostType):  PostActionType => ({
   type: POSTCONSTANT.POST_DETAILS_SUCCESS,
   payload: post,
 });
@@ -48,7 +47,6 @@ const setPostDetailError = (error: string): ErrorType => ({
   type: POSTCONSTANT.POST_DETAILS_FAIL,
   payload: error,
 });
-
 
 const requestAddPost = (post: PostType): RequestType =>({
   type: POSTCONSTANT.POST_ADD_REQUEST,
@@ -63,18 +61,17 @@ const setAddPostError = (error: string): ErrorType => ({
   payload: error,
 });
 
-const requestPostDelete = () => ({
-  type: POSTCONSTANT.POST_DELETE_REQUEST
+const requestPostDelete = (postId: number): RequestType => ({
+  type: POSTCONSTANT.POST_DELETE_REQUEST,
+  payload: postId,
 });
-const setPostDelete = post => ({
+const setPostDelete = (): RequestType => ({
   type: POSTCONSTANT.POST_DELETE_SUCCESS,
-   payload: post
 });
-const setPostDeleteError = (error) => ({
-  type: POSTCONSTANT.POST_DELETE_FAIL,
+const setPostDeleteError = (error: string): ErrorType => ({
+   type: POSTCONSTANT.POST_DELETE_FAIL,
    payload: error,
 });
-
 
 
 export {

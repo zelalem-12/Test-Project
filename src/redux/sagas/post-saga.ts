@@ -54,3 +54,18 @@ function* addPost({ payload }): IterableIterator<Object> {
 export function* watchAddPost(): IterableIterator<Object> {
   yield takeLatest(POSTCONSTANT.POST_ADD_REQUEST, addPost);
 }
+
+
+function* deletePost({ payload }): IterableIterator<Object> {
+  try {
+    yield call(API.deleteData, `posts/${payload}`);
+    yield put(postAction.setPostDelete());
+  }
+  catch (error) {
+    yield put(postAction.setPostDeleteError(getErrorMessage(error)));
+  }
+}
+
+export function* watchDeletePost(): IterableIterator<Object> {
+  yield takeLatest(POSTCONSTANT.POST_DELETE_REQUEST, deletePost);
+}

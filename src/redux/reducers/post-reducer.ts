@@ -93,7 +93,8 @@ const addPost = (state: PostStateType = {}, action): PostStateType => {
       }
 };
 
-const deletePost = (state = { post: {} }, action) => {
+
+const deletePost = (state = { deleted: false }, action) => {
   switch (action.type) {
     case POSTCONSTANT.POST_DELETE_REQUEST:
       return {
@@ -104,12 +105,13 @@ const deletePost = (state = { post: {} }, action) => {
       return {
         ...state,
         loading: false,
-        post: action.payload,
+        deleted: true,
       };
     case POSTCONSTANT.POST_DELETE_FAIL:
       return {
         ...state,
         loading: false,
+        deleted: false,
         error: action.payload,
       };
     default:
@@ -122,4 +124,4 @@ const deletePost = (state = { post: {} }, action) => {
    postDetail,
    addPost,
    deletePost
- };
+ };  

@@ -39,9 +39,21 @@ const addData = async (path: string, post: PostType): Promise<ApiDataType> => {
     return data;
 };
 
+const deleteData = async (path: string): Promise<ApiDataType> => {
+  const response = await fetch(`${baseUrl}/${path}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  if (response.status >= 400) {
+    throw new Error(data.errors);
+  }
+  return data;
+};
+
 
 export {
     fetchData,
-    addData 
+    addData,
+    deleteData
 };
 
