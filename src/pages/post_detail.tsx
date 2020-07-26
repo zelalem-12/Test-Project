@@ -47,9 +47,6 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
     const commentHandleCLick = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         };
-   const onDeleteRedirect = () =>{
-
-   }
 
     useEffect(() =>{
         dispatch(requestPostDetail(match.params.id));
@@ -64,23 +61,37 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
         ) : (
           postDetail.post && (
             <>
-              <h4>{postDetail.post.title}</h4>
-              <p>{postDetail.post.body}</p>
-              <h5> author: {postDetail.post.userId}</h5>
-              <div style={{margin: '2rem'}}>
-                  {
-                  postDelete.loading? 
-                  <span style={{fontSize: '1.5rem'}}>..deleting post</span>:
-                    postDelete.error?
-                    <span style={{fontSize: '1rem', color: 'red'}}>Ops unable to delete this post</span>:
-                    postDelete.deleted && <span style={{fontSize: '2rem', color: 'green'}}>post deleted successfully</span>                    
+              <PostDetailData>
+                <h4>{postDetail.post.title.toLocaleUpperCase()}</h4>
+                <p>{postDetail.post.body}</p>
+                <h5> author: {postDetail.post.userId}</h5>
+              </PostDetailData>
+              <div style={{ margin: "2rem" }}>
+                {postDelete.loading ? (
+                  <span style={{ fontSize: "1.5rem" }}>..deleting post</span>
+                ) : postDelete.error ? (
+                  <span style={{ fontSize: "1rem", color: "red" }}>
+                    Ops unable to delete this post
+                  </span>
+                ) : (
+                  postDelete.deleted && (
+                    <span style={{ fontSize: "2rem", color: "green" }}>
+                      post deleted successfully
+                    </span>
+                  )
+                )}
+              </div>
+              <ButtonWrapper>
+                <Button onClick={authorHandleCLick}>Author</Button>
+                <Button onClick={commentHandleCLick}>load comments</Button>
+                <Button
+                  onClick={(event) =>
+                    deleteHandleCLick(event, postDetail.post.id)
                   }
-              </div>
-              <div>
-                <button onClick={authorHandleCLick}>Author</button>
-                <button onClick={commentHandleCLick }>load comments</button>
-                <button onClick={event => deleteHandleCLick(event, postDetail.post.id)}>Delete Post</button>
-              </div>
+                >
+                  Delete Post
+                </Button>
+              </ButtonWrapper>
             </>
           )
         )}
@@ -92,9 +103,8 @@ export default PostDetail;
 
 
 const PostDetailWrapper = styled.div`
-width: 55%;
+width: 100%;
 margin: 100px auto;
-border: solid black 1px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -102,7 +112,39 @@ justify-conten: center;
 padding: 8px;
 `
 
-const  buttonWrapper = styled.div`
-width: 100%;
-display: flex;
-`
+const ButtonWrapper = styled.div`
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & * {
+      margin: 1rem
+  }
+`;
+const Button = styled.button`
+  height: 2rem;
+  width: 20%;
+  background-color: #0a6783;
+  color: white;
+  text-transform: uppercase;
+  fon-size: 0.5rem;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+ text-align: center;
+  &:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+`;
+
+const PostDetailData = styled.div`
+   width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-conten: center;
+    padding: 1rem;
+  j
+`;

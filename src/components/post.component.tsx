@@ -19,11 +19,11 @@ const Post: React.FC<RouteComponentProps<{}> &  PostType> = ({id, title, body,hi
     }
 
     return (
-        <PostWrapper onClick={handleCLick} >
-            <h4>{title}</h4>
-            <p>{body}</p>
-        </PostWrapper >
-    )
+      <PostWrapper onClick={handleCLick}>
+        <h4>{title.toLocaleUpperCase()}</h4>
+        <p>{body}</p>
+      </PostWrapper>
+    );
 }
 
 export default withRouter(Post);
