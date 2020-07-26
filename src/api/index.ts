@@ -7,7 +7,8 @@ interface AlbumType {
     title: string
 };
 interface PostType {
-    id: number;
+    id?: number,
+    userId: number,
     title: string;
     body: string
 }
@@ -22,7 +23,25 @@ const fetchData = async (path: string): Promise<ApiDataType> => {
     return data;
 };
 
-export { 
-    fetchData
- };
-    
+
+const addData = async (path: string, post: PostType): Promise<ApiDataType> => {
+    const response = await fetch(`${baseUrl}/${path}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(post)
+    });
+    const data = await response.json();
+    if (response.status >= 400) {
+        throw new Error(data.errors);
+    }
+    return data;
+};
+
+
+export {
+    fetchData,
+    addData 
+};
+

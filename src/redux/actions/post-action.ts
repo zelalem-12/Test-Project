@@ -1,14 +1,14 @@
 import * as POSTCONSTANT from '../constants/post-constant';
 
 interface PostType {
-  id: number;
+  id?: number;
   userId: number,
   title: string;
   body: string
 }
 interface RequestType {
   type: string,
-  payload?: number
+  payload?: number | PostType
 }
 interface ErrorType {
   type: string,
@@ -36,8 +36,6 @@ const setPostListError = (error: string): ErrorType => ({
   payload : error
 });
 
-
-
 const requestPostDetail = (postId: number): RequestType => ({
   type: POSTCONSTANT.POST_DETAILS_REQUEST,
   payload: postId
@@ -52,19 +50,15 @@ const setPostDetailError = (error: string): ErrorType => ({
 });
 
 
-
-
-
-
-
-const requestAddPost = () =>({
-  type: POSTCONSTANT.POST_ADD_REQUEST
+const requestAddPost = (post: PostType): RequestType =>({
+  type: POSTCONSTANT.POST_ADD_REQUEST,
+  payload: post
 });
-const setAddPost = (post) => ({
+const setAddPost = (post: PostType) => ({
   type: POSTCONSTANT.POST_ADD_SUCCESS,
   payload: post,
 });
-const setAddPostError = (error) => ({
+const setAddPostError = (error: string): ErrorType => ({
   type: POSTCONSTANT.POST_ADD_FAIL,
   payload: error,
 });

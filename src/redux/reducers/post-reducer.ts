@@ -12,7 +12,7 @@ interface PostListStateType {
   error?: string
 }
 
-interface PostDetailStateType {
+interface PostStateType {
   loading?: boolean,
   post?: PostType,
   error?: string
@@ -43,7 +43,7 @@ const listPosts = (state: PostListStateType = { posts: [] }, action): PostListSt
 };
 
 
-const postDetail = (state: PostDetailStateType = {}, action): PostDetailStateType => {
+const postDetail = (state: PostStateType = {}, action): PostStateType => {
     switch(action.type){
         case POSTCONSTANT.POST_DETAILS_REQUEST:
             return {
@@ -58,6 +58,7 @@ const postDetail = (state: PostDetailStateType = {}, action): PostDetailStateTyp
               };
         case POSTCONSTANT.POST_DETAILS_FAIL:
             return {
+              ...state,
                loading: false, 
                error: action.payload
               };
@@ -68,17 +69,28 @@ const postDetail = (state: PostDetailStateType = {}, action): PostDetailStateTyp
 
 
 
-
-const addPost = ( state = {post: {}}, action) => {
-        switch(action.type){
-            case POSTCONSTANT.POST_ADD_REQUEST:
-                return { loading: true };
-            case POSTCONSTANT.POST_ADD_SUCCESS:
-                return { loading: false, success: true, post: action.payload };
-             case POSTCONSTANT.POST_ADD_FAIL:
-                 return { loading: false, error: action.payload };
-             default: return state;
-        }
+const addPost = (state: PostStateType = {}, action): PostStateType => {
+      switch (action.type) {
+        case POSTCONSTANT.POST_ADD_REQUEST:
+          return {
+            ...state,
+            loading: true
+          };
+        case POSTCONSTANT.POST_ADD_SUCCESS:
+          return {
+            ...state,
+            loading: false,
+            post: action.payload,
+          };
+        case POSTCONSTANT.POST_ADD_FAIL:
+          return {
+            ...state,
+            loading: false,
+            error: action.payload
+          };
+        default:
+          return state;
+      }
 };
 
 const deletePost = (state = { post: {} }, action) => {

@@ -8,6 +8,10 @@ const Header: React.FC = () => {
     return (
       <Wrapper color="black" fontSize={18} mb={20}>
         <div>Test Project</div>
+        <NavLink activeStyle={{
+          fontWeight: "bold",
+          color: "#07e4d5"
+        }} to="/add-post">Add Post</NavLink>
         <NavLink exact activeStyle={{
           fontWeight: "bold",
           color: "#07e4d5"

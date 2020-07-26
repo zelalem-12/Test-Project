@@ -7,6 +7,7 @@ import Posts from "./pages/posts";
 import Albums from "./pages/albums";
 import Todos from './pages/todos';
 import PostDetail from "./pages/post_detail";
+import AddPost from "./pages/add-post";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route exact path="/albums" component={Albums} />
           <Route exact path="/todos" component={Todos} />
           <Route path="/posts/:id" component={PostDetail} />
+          <Route path="/add-post" component={AddPost}/>
         </Switch>
       </main>
       <Switch>
