@@ -13,11 +13,9 @@ const rootReducer = combineReducers({
   postAdd: postReducer.addPost,
   postDelete: postReducer.deletePost,
 
+  loadedComments: postReducer.loadComments,
   albumList: albumReducer.listAlbums,
-  
-  todoList: todoReducer.listTodos
-
-
+  todoList: todoReducer.listTodos,
 });
 
 

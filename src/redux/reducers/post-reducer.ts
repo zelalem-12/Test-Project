@@ -17,7 +17,19 @@ interface PostStateType {
   post?: PostType,
   error?: string
 }
+interface CommentType{
+  postID: number,
+  id: number,
+  name:  string,
+  emial: string,
+  body: string,
+}
 
+interface CommentStateType {
+  loading: boolean,
+  comments?: CommentType[],
+  error?: string
+}
 
 const listPosts = (state: PostListStateType = { posts: [] }, action): PostListStateType => {
   switch (action.type) {
@@ -119,9 +131,35 @@ const deletePost = (state = { deleted: false }, action) => {
   }
 };
 
+const loadComments = (state: CommentStateType = { comments: [], loading: false }, action): CommentStateType => {
+  switch (action.type) {
+    case POSTCONSTANT.LOAD_COMMENT_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case POSTCONSTANT.LOAD_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        comments: action.payload
+      };
+    case POSTCONSTANT.LOAD_COMMENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+};
+
+
  export {
    listPosts,
    postDetail,
    addPost,
-   deletePost
+   deletePost,
+   loadComments
  };  

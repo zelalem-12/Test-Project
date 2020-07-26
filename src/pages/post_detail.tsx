@@ -3,7 +3,8 @@ import {useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components';
 
 import CustomButton from '../components/CustomButton';
-import { requestPostDetail, requestPostDelete } from '../redux/actions/post-action'
+import Comment from '../components/comment.component';
+import { requestPostDetail, requestPostDelete, requestLoadComment } from '../redux/actions/post-action'
 
 
 interface PostDetailProps {
@@ -28,11 +29,26 @@ interface PostDeleteStateType {
     deleted?: boolean,
     error?: string
 }
+
+interface CommentType{
+  postId: number,
+  id: number,
+  name:  string,
+  email: string,
+  body: string,
+}
+interface CommentStateType {
+    loading?: boolean,
+    comments?: CommentType[],
+    error?: string
+}
+
 const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
 
     const dispatch = useDispatch();
-    const postDetail: PostDetailStateType = useSelector(state => state.postDetail);
 
+    const postDetail: PostDetailStateType = useSelector(state => state.postDetail);
+    const loadedComments: CommentStateType = useSelector(state => state.loadedComments);
     const postDelete: PostDeleteStateType = useSelector(state => state.postDelete);
 
     const authorHandleCLick = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -44,8 +60,9 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
           dispatch(requestPostDelete(postId));
         };
 
-    const commentHandleCLick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    const commentHandleCLick = (e: React.MouseEvent<HTMLButtonElement>, postId: number): void => {
         e.preventDefault();
+        dispatch(requestLoadComment(postId));
         };
 
     useEffect(() =>{
@@ -83,7 +100,13 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
               </div>
               <ButtonWrapper>
                 <Button onClick={authorHandleCLick}>Author</Button>
-                <Button onClick={commentHandleCLick}>load comments</Button>
+                <Button
+                  onClick={(event) =>
+                    commentHandleCLick(event, postDetail.post.id)
+                  }
+                >
+                  load comments
+                </Button>
                 <Button
                   onClick={(event) =>
                     deleteHandleCLick(event, postDetail.post.id)
@@ -92,6 +115,22 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
                   Delete Post
                 </Button>
               </ButtonWrapper>
+              {loadedComments.loading ? (
+                <span style={{ fontSize: "1.5rem" }}>...Loading Comments</span>
+              ) : loadedComments.error ? (
+                <span style={{ fontSize: "1rem", color: "red" }}>
+                  Ops unable to delete this post
+                </span>
+              ) : (
+                loadedComments.comments && (
+                  <CommentListWrapper>
+                    {loadedComments.comments &&
+                      loadedComments.comments.map((comment: CommentType) => (
+                        <Comment key={comment.id} {...comment} />
+                      ))}
+                  </CommentListWrapper>
+                )
+              )}
             </>
           )
         )}
@@ -140,7 +179,7 @@ const Button = styled.button`
 `;
 
 const PostDetailData = styled.div`
-   width: 80%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -148,3 +187,8 @@ const PostDetailData = styled.div`
     padding: 1rem;
   j
 `;
+
+const CommentListWrapper = styled.div`
+width:50%;
+margin: 5rem auto;
+`

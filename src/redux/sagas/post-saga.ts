@@ -11,6 +11,14 @@ interface PostType {
   title: string;
   body: string
 }
+interface CommentType{
+  postId: number,
+  id: number,
+  name: string,
+  email: string,
+  body: string
+}
+
 function* fetchPosts(): IterableIterator<Object> {
   try {
     const posts: PostType[] = yield call(API.fetchData, "posts");
@@ -68,4 +76,19 @@ function* deletePost({ payload }): IterableIterator<Object> {
 
 export function* watchDeletePost(): IterableIterator<Object> {
   yield takeLatest(POSTCONSTANT.POST_DELETE_REQUEST, deletePost);
+}
+
+
+
+function* loadComments({ payload }): IterableIterator<Object> {
+  try {
+    const comments: CommentType[] = yield call(API.fetchData, `comments?postId=${payload}`);
+    yield put(postAction.setLoadComment(comments));
+  } catch (error) {
+    yield put(postAction.setLoadCommentError(getErrorMessage(error)));
+  }
+}
+
+export function* watchLoadComments(): IterableIterator<Object> {
+  yield takeLatest(POSTCONSTANT.LOAD_COMMENT_REQUEST, loadComments);
 }

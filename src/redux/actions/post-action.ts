@@ -8,7 +8,7 @@ interface PostType {
 }
 interface RequestType {
   type: string,
-  payload?: number | PostType
+  payload?: number | PostType | CommentType
 }
 interface ErrorType {
   type: string,
@@ -23,6 +23,18 @@ interface PostActionType {
   payload: PostType
 }
 
+interface CommentType{
+  postId: number,
+  id: number,
+  name:  string,
+  email: string,
+  body: string,
+}
+
+interface PostCommentActionType {
+  type: string,
+  payload: CommentType[]
+}
 const requestPostList = (): RequestType => ({
   type: POSTCONSTANT.POST_LIST_REQUEST,
 });
@@ -73,6 +85,19 @@ const setPostDeleteError = (error: string): ErrorType => ({
    payload: error,
 });
 
+const requestLoadComment = (postId: number): RequestType => ({
+  type: POSTCONSTANT.LOAD_COMMENT_REQUEST,
+  payload: postId
+});
+const setLoadComment = (comments: CommentType[]): PostCommentActionType => ({
+  type: POSTCONSTANT.LOAD_COMMENT_SUCCESS,
+  payload: comments,
+});
+const setLoadCommentError = (error: string): ErrorType => ({
+  type: POSTCONSTANT.LOAD_COMMENT_FAIL,
+  payload: error,
+});
+
 
 export {
   requestPostList,
@@ -89,6 +114,9 @@ export {
 
   requestPostDelete,
   setPostDelete,
-  setPostDeleteError
+  setPostDeleteError,
 
+  requestLoadComment,
+  setLoadComment,
+  setLoadCommentError,
 };

@@ -1,8 +1,9 @@
 import { all } from 'redux-saga/effects';
 
-import { watchFetchPosts, watchFetchPost, watchAddPost, watchDeletePost} from "./post-saga";
+import { watchFetchPosts, watchFetchPost, watchAddPost, watchDeletePost, watchLoadComments} from "./post-saga";
 import { watchFetchAlbums} from './album-saga'
 import { watchFetchTodos } from './todo-saga';
+
 
 
 export default function* rootSaga(): IterableIterator<Object> {
@@ -12,6 +13,7 @@ export default function* rootSaga(): IterableIterator<Object> {
       watchFetchTodos(),
       watchFetchPost(),
       watchAddPost(),
-      watchDeletePost()
+      watchDeletePost(),
+      watchLoadComments()
     ]);
 }
