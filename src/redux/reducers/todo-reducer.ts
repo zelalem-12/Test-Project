@@ -2,9 +2,9 @@ import * as ALBUMCONSTANT from "../constants/album.constant";
 
 interface TodoType {
     userId: number,
-    id: number;
-    title: string;
-    completed: boolean
+    id: number,
+    title: string,
+
 }
 
 interface TodoListStateType {

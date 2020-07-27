@@ -16,9 +16,9 @@ const Comment: React.FC<CommentType> = ({name, email, body}) => {
 
     return (
       <CommentWrapper>
-        <h4>{name.toLocaleUpperCase()}</h4>
-        <p>{email}</p>
-        <p>{body}</p>
+        <p><strong>Comment Title:</strong>{name}</p>
+        <p><strong>Commenter Email:</strong>{email}</p>
+        <p><strong>Comment Body:</strong>{body}</p>
       </CommentWrapper>
     );
 }
@@ -28,10 +28,10 @@ export default Comment;
 const CommentWrapper = styled.div`
   width: 100%;
   margin: 0 10px 30px;
-  border: solid black 1px;
+  border-bottom: solid black 1px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-conten: center;
+  align-items: flex-start;
+  justify-content: space-between;
   padding: 8px;
 `;

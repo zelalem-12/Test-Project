@@ -1,16 +1,19 @@
 import React, {useEffect, MouseEvent} from 'react';
 import {useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components';
-
-import CustomButton from '../components/CustomButton';
 import Comment from '../components/comment.component';
-import { requestPostDetail, requestPostDelete, requestLoadComment } from '../redux/actions/post-action'
+import Author from '../components/post-author-component'
+import { 
+    requestPostDetail,
+    requestPostDelete,
+    requestLoadComment,
+    requestLoadAuthor
+     } from '../redux/actions/post-action'
 
 
 interface PostDetailProps {
     match: any,
     history: any
-    
 }
 
 interface PostType {
@@ -43,16 +46,52 @@ interface CommentStateType {
     error?: string
 }
 
+interface Geo {
+  lat: string,
+  lng: string
+}
+interface Address {
+  street: string,
+  suite: string,
+  city: string,
+  zipcode: string,
+  geo: Geo
+}
+
+interface Company {
+  name: string,
+  catchPhrase: string,
+  bs: string
+}
+interface UserType {
+  id: number,
+  name: string,
+  username: string,
+  email: string,
+  address: Address,
+  phone: string,
+  website: string,
+  company: Company
+}
+
+interface UserStateType {
+  loadding?: string,
+  author: UserType,
+  error: string
+}
 const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
 
     const dispatch = useDispatch();
 
+  const postAuthor: UserStateType = useSelector(state => state.postAuthor);
     const postDetail: PostDetailStateType = useSelector(state => state.postDetail);
     const loadedComments: CommentStateType = useSelector(state => state.loadedComments);
     const postDelete: PostDeleteStateType = useSelector(state => state.postDelete);
+    console.log(postAuthor)
 
-    const authorHandleCLick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    const authorHandleCLick = (e: React.MouseEvent<HTMLButtonElement>, userId: number): void => {
       e.preventDefault();
+      dispatch(requestLoadAuthor(userId));
     };
 
      const deleteHandleCLick = (e: React.MouseEvent<HTMLButtonElement>, postId: number): void => {
@@ -81,7 +120,6 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
               <PostDetailData>
                 <h4>{postDetail.post.title.toLocaleUpperCase()}</h4>
                 <p>{postDetail.post.body}</p>
-                <h5> author: {postDetail.post.userId}</h5>
               </PostDetailData>
               <div style={{ margin: "2rem" }}>
                 {postDelete.loading ? (
@@ -98,8 +136,25 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
                   )
                 )}
               </div>
+              {
+                  postAuthor.loadding ? <span style={{ fontSize: "1.5rem" }}>..Loading Author</span>:
+                    postAuthor.error ? 
+                    <span style={{ fontSize: "1rem", color: "red" }}>
+                    Ops unable to load the Author
+                    </span>: 
+                      postAuthor.author && (<>
+                        <h1 style={{textTransform: "uppercase"}}>Author information </h1>
+                        <Author {...postAuthor.author} />
+                        </>
+                    ) 
+              }
               <ButtonWrapper>
-                <Button onClick={authorHandleCLick}>Author</Button>
+                <Button 
+                  onClick={(event) =>
+                      authorHandleCLick(event, postDetail.post.userId)
+                    }
+                  >
+                    Author</Button>
                 <Button
                   onClick={(event) =>
                     commentHandleCLick(event, postDetail.post.id)
@@ -124,7 +179,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
               ) : (
                 loadedComments.comments && (
                   <CommentListWrapper>
-                    {loadedComments.comments &&
+                    {
                       loadedComments.comments.map((comment: CommentType) => (
                         <Comment key={comment.id} {...comment} />
                       ))}

@@ -20,7 +20,7 @@ const Button = styled.button`
     padding: 0 35px 0 35px;
     font-size: 15px;
     background-color:#0a6783;                     
-    color: white;
+    color: black;
     text-transform: uppercase;
     font-family: 'Open Sans Condensed';
     font-weight: bolder;
@@ -30,8 +30,8 @@ const Button = styled.button`
     justify-content: center;
 
     &:hover {
-      background-color: white;
-      color: black;
+      background-color: black;
+      color: white;
       border: 1px solid black;
     }
 `

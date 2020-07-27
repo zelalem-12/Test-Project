@@ -19,6 +19,35 @@ interface CommentType{
   body: string
 }
 
+interface Geo{
+  lat: string,
+  lng: string
+}
+interface Address{
+  street: string,
+  suite: string,
+  city: string,
+  zipcode: string,
+  geo: Geo
+}
+
+interface Company{
+  name: string,
+  catchPhrase: string,
+  bs: string
+}
+interface UserType{
+  id: number,
+  name: string,
+  username: string,
+  email: string,
+  address: Address,
+  phone: string,
+  website: string,
+  company: Company
+}
+
+
 function* fetchPosts(): IterableIterator<Object> {
   try {
     const posts: PostType[] = yield call(API.fetchData, "posts");
@@ -91,4 +120,18 @@ function* loadComments({ payload }): IterableIterator<Object> {
 
 export function* watchLoadComments(): IterableIterator<Object> {
   yield takeLatest(POSTCONSTANT.LOAD_COMMENT_REQUEST, loadComments);
+}
+
+
+function* loadAuthor({ payload }): IterableIterator<Object>{
+  try{
+    const author: UserType = yield call(API.fetchData, `users/${payload}`);
+    yield put(postAction.setLoadAuthor(author));
+  }catch(error){
+    yield put(postAction.setLoadAuthorError(getErrorMessage(error)));
+  }
+}
+
+export function* watchLoadAuthor(): IterableIterator<Object>{
+  yield takeLatest(POSTCONSTANT.LOAD_AUTHOR_REQUEST, loadAuthor);
 }

@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
 import { withRouter, RouteComponentProps} from 'react-router-dom'
-import posts from '../pages/posts';
+import CustomButton from '../components/CustomButton';
 
 
 interface PostType{
@@ -9,6 +9,14 @@ interface PostType{
     title: string;
     body: string,
 }
+
+{/* <div className="post-data">
+  <span className="name">{title}</span>
+  <span className="price">{body}</span>
+</div>
+  <CustomButton onClick={handleCLick}>
+    See more
+        </CustomButton> */}
 
 
 const Post: React.FC<RouteComponentProps<{}> &  PostType> = ({id, title, body,history}) => {
@@ -19,10 +27,15 @@ const Post: React.FC<RouteComponentProps<{}> &  PostType> = ({id, title, body,hi
     }
 
     return (
-      <PostWrapper onClick={handleCLick}>
-        <h4>{title.toLocaleUpperCase()}</h4>
-        <p>{body}</p>
-      </PostWrapper>
+      <PostWrapper >
+          <div className="post-data">
+              <span className="title">{title}</span>
+              <span className="body">{body}</span>
+        </div>
+        <CustomButton className="custom-button" onClick={handleCLick} >
+              See more
+        </CustomButton>
+    </PostWrapper>
     );
 }
 
@@ -30,12 +43,51 @@ export default withRouter(Post);
 
 
 const PostWrapper = styled.div`
-width: 30%;
-margin: 0 10px 30px;
-border: solid black 1px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-conten: center;
-padding: 8px;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  align-items: center;
+  justify-conten: center;
+  position: relative;
+  border: solid black 1px;
+  padding: 1rem;
+  margin: 1rem;
+  & * {
+    font-family: "Times New Roman", Times, serif;
+  }
+  & .post-data{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-conten: center;
+      .title{
+        text-transform: uppercase;
+        margin: 1rem 0;
+        font-family: bold;
+      }
+        .body{
+        text-transform: capitalize;
+      }
+  }
+  & .custom-button{
+    width: 80%;
+    opacity: 0.7;
+    position: absolute;
+    top: 220px;
+    background-color:white;                     
+  }
+   &:hover{
+    .custom-button {
+      display: flex;
+      background-color:black;  
+      color: white;
+    }
+   }
 `
+
+
+
+
+
+  

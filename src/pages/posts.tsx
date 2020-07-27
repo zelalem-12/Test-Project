@@ -37,9 +37,8 @@ const posts = (): JSX.Element => {
 export default posts;
 
 const PostsWrapper = styled.div`
-width: 90%;
+width: 95%;
 margin: 60px auto;
 display: flex;
 flex-wrap: wrap;
-felx-gap: 20px;
 `

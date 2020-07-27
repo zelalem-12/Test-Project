@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   postDetail: postReducer.postDetail,
   postAdd: postReducer.addPost,
   postDelete: postReducer.deletePost,
-
+  postAuthor: postReducer.loadAuthor,
   loadedComments: postReducer.loadComments,
   albumList: albumReducer.listAlbums,
   todoList: todoReducer.listTodos,

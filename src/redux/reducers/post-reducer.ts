@@ -31,6 +31,39 @@ interface CommentStateType {
   error?: string
 }
 
+interface Geo{
+  lat: string,
+  lng: string
+}
+interface Address{
+  street: string,
+  suite: string,
+  city: string,
+  zipcode: string,
+  geo: Geo
+}
+
+interface Company{
+  name: string,
+  catchPhrase: string,
+  bs: string
+}
+interface UserType{
+  id: number,
+  name: string,
+  username: string,
+  email: string,
+  address: Address,
+  phone: string,
+  website: string,
+  company: Company
+}
+interface AuthorStateType{
+  loading?: boolean,
+  author?: UserType,
+  error?: string
+}
+
 const listPosts = (state: PostListStateType = { posts: [] }, action): PostListStateType => {
   switch (action.type) {
     case POSTCONSTANT.POST_LIST_REQUEST:
@@ -156,10 +189,39 @@ const loadComments = (state: CommentStateType = { comments: [], loading: false }
 };
 
 
+const loadAuthor = (state: AuthorStateType = { loading: false }, action): AuthorStateType => {
+  switch (action.type) {
+    case POSTCONSTANT.LOAD_AUTHOR_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case POSTCONSTANT.LOAD_AUTHOR_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        author: action.payload
+      };
+    case POSTCONSTANT.LOAD_AUTHOR_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+};
+
+
+
+
  export {
    listPosts,
    postDetail,
    addPost,
    deletePost,
-   loadComments
+   loadComments,
+   loadAuthor
+
  };  

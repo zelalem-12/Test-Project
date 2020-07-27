@@ -7,9 +7,8 @@ import Todo from '../components/todo.component';
 
 interface TodoType {
     userId: number,
-    id: number;
-    title: string;
-    completed: boolean
+    id: number,
+    title: string,
 };
 interface TodoListStateType {
     loading?: boolean,
@@ -23,7 +22,6 @@ interface TodoListStateType {
 const Todos: React.FC = () => {
 
     const todoList: TodoListStateType  = useSelector(state => state.todoList);
-    console.log(todoList)
     const dispatch = useDispatch();
 
     useEffect(() => {

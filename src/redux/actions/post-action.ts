@@ -35,6 +35,39 @@ interface PostCommentActionType {
   type: string,
   payload: CommentType[]
 }
+
+interface Geo{
+  lat: string,
+  lng: string
+}
+interface Address{
+  street: string,
+  suite: string,
+  city: string,
+  zipcode: string,
+  geo: Geo
+}
+
+interface Company{
+  name: string,
+  catchPhrase: string,
+  bs: string
+}
+interface UserType{
+  id: number,
+  name: string,
+  username: string,
+  email: string,
+  address: Address,
+  phone: string,
+  website: string,
+  company: Company
+}
+interface UserActionType{
+  type: string,
+  payload: UserType
+}
+
 const requestPostList = (): RequestType => ({
   type: POSTCONSTANT.POST_LIST_REQUEST,
 });
@@ -98,6 +131,19 @@ const setLoadCommentError = (error: string): ErrorType => ({
   payload: error,
 });
 
+const requestLoadAuthor = (userId: number): RequestType => ({
+  type: POSTCONSTANT.LOAD_AUTHOR_REQUEST,
+  payload: userId,
+});
+const setLoadAuthor = (user: UserType): UserActionType => ({
+  type: POSTCONSTANT.LOAD_AUTHOR_SUCCESS,
+  payload: user,
+});
+const setLoadAuthorError = (error: string): ErrorType => ({
+  type: POSTCONSTANT.LOAD_AUTHOR_FAIL,
+  payload: error,
+});
+
 
 export {
   requestPostList,
@@ -119,4 +165,8 @@ export {
   requestLoadComment,
   setLoadComment,
   setLoadCommentError,
+
+  requestLoadAuthor,
+  setLoadAuthor,
+  setLoadAuthorError
 };
