@@ -1,28 +1,41 @@
-import React from 'react';
+import React, { useState} from 'react';
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
 import {color, fontSize, space} from 'styled-system';
 
 
 const Header: React.FC = () => {
+
+  const [color, setColor] = useState<string>("#000000");
+    window.addEventListener("scroll", () => {
+    const scrolled = window.scrollY;
+      if (scrolled > 0 && color === "#000000"){
+        document.getElementsByTagName("nav")[0].style.backgroundColor = "#9FA5A3";
+      setColor("#ffffff");
+    }
+      if (scrolled === 0 && color === "#ffffff"){
+        document.getElementsByTagName("nav")[0].style.backgroundColor = "transparent";
+        setColor("#000000");
+      }
+  });
     return (
-      <Wrapper color="black" fontSize={18} mb={20}>
+      <Wrapper color={color} fontSize={18} mb={20}>
         <div>Test Project</div>
-        <NavLink activeStyle={{
+        <NavLink color={color} activeStyle={{
           fontWeight: "bold",
           color: "#07e4d5"
         }} to="/add-post">Add Post</NavLink>
-        <NavLink exact activeStyle={{
+        <NavLink color={color} exact activeStyle={{
           fontWeight: "bold",
           color: "#07e4d5"
         }} to="/posts">Posts</NavLink>
         
-        <NavLink activeStyle={{
+        <NavLink color={color} activeStyle={{
           fontWeight: "bold",   
           color: "#07e4d5"
         }} to="/albums">Albums</NavLink>
 
-        <NavLink activeStyle={{
+        <NavLink color={color} activeStyle={{
           fontWeight: "bold",
           color: "#07e4d5"
         }} to="/todos">Todos</NavLink>
@@ -48,7 +61,6 @@ const Wrapper = styled.nav`
   & * {
     margin: 0 5px;
     text-decoration: none;
-    color: black;
   }
   & div:first-child {
     margin-right: auto;

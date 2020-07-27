@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from "redux-saga/effects";
+import { put, call, takeLatest } from "redux-saga/effects";
 
 import * as API from "../../api";
 import * as albumAction from "../actions/album-action";
@@ -13,6 +13,7 @@ interface AlbumType {
 
 function* fetchAlbums(): IterableIterator<Object> {
   try {
+    
     const albums:[AlbumType] = yield call(API.fetchData, "albums");
     yield put(albumAction.setAlbumList(albums));
   } catch (error) {
@@ -21,5 +22,6 @@ function* fetchAlbums(): IterableIterator<Object> {
 }
 
 export function* watchFetchAlbums(): IterableIterator<Object> {
-  yield takeEvery(ALBUMCONSTANT.ALBUM_LIST_REQUEST, fetchAlbums);
+  yield takeLatest(ALBUMCONSTANT.ALBUM_LIST_REQUEST, fetchAlbums);
 }
+

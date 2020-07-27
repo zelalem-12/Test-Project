@@ -46,5 +46,4 @@ width: 90%;
 margin: 60px auto;
 display: flex;
 flex-wrap: wrap;
-felx-gap: 20px;
 `

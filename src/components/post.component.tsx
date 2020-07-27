@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
-import { withRouter, RouteComponentProps} from 'react-router-dom'
+import { withRouter, RouteComponentProps} from 'react-router-dom';
 import CustomButton from '../components/CustomButton';
 
 
@@ -10,13 +10,6 @@ interface PostType{
     body: string,
 }
 
-{/* <div className="post-data">
-  <span className="name">{title}</span>
-  <span className="price">{body}</span>
-</div>
-  <CustomButton onClick={handleCLick}>
-    See more
-        </CustomButton> */}
 
 
 const Post: React.FC<RouteComponentProps<{}> &  PostType> = ({id, title, body,history}) => {

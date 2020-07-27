@@ -4,30 +4,49 @@ import styled from 'styled-components';
 
 interface TodoType {
     userId: number,
-    id: number;
+    id?: number;
     title: string;
 };
 
-const Todo: React.FC<TodoType> = ({userId, id, title}) => {
-    
+const Todo: React.FC<TodoType> = ({ userId, title }) => {
+
     return (
-       <TodoWrapper>
-        <h3>{title}</h3>
-        <h4>Done By: <strong>{userId}</strong></h4>
-       </TodoWrapper>
+        <TodoWrapper>
+            <div className="todo-data">
+                <span className="title">{title}</span>
+                <span className="Owner"><strong>Done By:</strong>{userId}</span>
+            </div>
+        </TodoWrapper>
     )
 }
 
-export default Todo;
+export default Todo;;
 
 
 const TodoWrapper = styled.div`
-width: 30%;
-margin: 0 10px 30px;
-border: solid black 1px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-conten: center;
-padding: 8px;
+    width: 25%;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  align-items: center;
+  justify-conten: center;
+  position: relative;
+  border: solid black 1px;
+  padding: 1rem;
+  margin: 1rem;
+  & * {
+    font-family: "Times New Roman", Times, serif;
+  }
+  & .todo-data{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-conten: center;
+      .title{
+        text-transform: uppercase;
+        margin: 1rem 0;
+        font-family: bold;
+      }
+  }
+   }
 `

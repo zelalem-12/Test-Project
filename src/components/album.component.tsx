@@ -1,39 +1,54 @@
 import React from 'react';
 import styled from 'styled-components';
-import Albums from '../pages/albums';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import CustomButton from '../components/CustomButton';
 
 
 interface AlbumType{
-    userId: number,
+    userId?: number,
     id: number,
     title: string
 };
 
-const Album: React.FC<AlbumType> = ({userId, id, title}) => {
+const Album: React.FC<RouteComponentProps<{}> & AlbumType> = ({userId, title, history}) => {
 
-    const handleCLick = (e: React.FormEvent<HTMLInputElement>): void => {
-        e.preventDefault();
-        console.log(`I am moving to the this album detail, ${id}`)
-
-    }
     return (
-        <AlbumWrapper onClick={handleCLick} >
-            <h4>{title}</h4>
-            <p>Owned by{userId}</p>
+        <AlbumWrapper >
+            <div className="album-data">
+               <span className="title">{title}</span>
+               <span className ="Owner"><strong>Owner:</strong>{userId}</span>
+            </div>
         </AlbumWrapper >
     )
 }
 
-export default Album;
+export default withRouter(Album);
 
 
 const AlbumWrapper = styled.div`
-width: 30%;
-margin: 0 10px 30px;
-border: solid black 1px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-conten: center;
-padding: 8px;
+    width: 25%;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  align-items: center;
+  justify-conten: center;
+  position: relative;
+  border: solid black 1px;
+  padding: 1rem;
+  margin: 1rem;
+  & * {
+    font-family: "Times New Roman", Times, serif;
+  }
+  & .album-data{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-conten: center;
+      .title{
+        text-transform: uppercase;
+        margin: 1rem 0;
+        font-family: bold;
+      }
+  }
+   }
 `

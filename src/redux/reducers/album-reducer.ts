@@ -11,6 +11,18 @@ interface AlbumListStateType {
   albums?: AlbumType[],
   error?: string
 }
+interface AlbumImageType {
+  albumId?: number,
+  id: number,
+  title: string,
+  url: string,
+  thumbnailUrl: string
+};
+interface AlbumImageStateType {
+  loading?: boolean,
+  images?: AlbumImageType[],
+  error?: string
+}
 
 const listAlbums = (state: AlbumListStateType = { albums: [], }, action): AlbumListStateType => {
   switch (action.type) {
@@ -35,6 +47,7 @@ const listAlbums = (state: AlbumListStateType = { albums: [], }, action): AlbumL
       return state;
   }
 };
+
 
  export { 
      listAlbums

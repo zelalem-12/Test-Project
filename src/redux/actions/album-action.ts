@@ -9,6 +9,7 @@ interface AlbumType {
 
 interface RequestType {
   type: string,
+  payload?: number
 }
 interface ErrorType {
   type: string,
@@ -35,47 +36,13 @@ const setAlbumListError = (error: string): ErrorType => ({
 });
 
 
-// const requestPostDetail = () => ({
-//   type: ALBUMCONSTANT.ALB,
-// });
-// const setPostDetail = (post) => ({
-//   type: ALBUMCONSTANT.POST_DETAILS_REQUEST,
-//   payload: post,
-// });
-// const setPostDetailError = (error) => ({
-//   type: ALBUMCONSTANT.POST_DETAILS_REQUEST,
-//   payload: error,
-// });
 
-
-// const requestAddPost = () => ({
-//   type: ALBUMCONSTANT.POST_ADD_REQUEST,
-// });
-// const setAddPost = (post) => ({
-//   type: ALBUMCONSTANT.POST_ADD_SUCCESS,
-//   payload: post,
-// });
-// const setAddPostError = (error) => ({
-//   type: ALBUMCONSTANT.POST_ADD_FAIL,
-//   payload: error,
-// });
-
-// const requestPostDelete = () => ({
-//   type: ALBUMCONSTANT.POST_DELETE_REQUEST,
-// });
-// const setPostDelete = (post) => ({
-//   type: ALBUMCONSTANT.POST_DELETE_SUCCESS,
-//   payload: post,
-// });
-// const setPostDeleteError = (error) => ({
-//   type: ALBUMCONSTANT.POST_DELETE_FAIL,
-//   payload: error,
-// });
 
 
 
 export {
 requestAlbumList,
 setAlbumList,
-setAlbumListError
+setAlbumListError,
+
 };

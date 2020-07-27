@@ -87,7 +87,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
     const postDetail: PostDetailStateType = useSelector(state => state.postDetail);
     const loadedComments: CommentStateType = useSelector(state => state.loadedComments);
     const postDelete: PostDeleteStateType = useSelector(state => state.postDelete);
-    console.log(postAuthor)
+  
 
     const authorHandleCLick = (e: React.MouseEvent<HTMLButtonElement>, userId: number): void => {
       e.preventDefault();
