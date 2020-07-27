@@ -6,7 +6,8 @@ import {
   watchAddPost, 
   watchDeletePost, 
   watchLoadComments, 
-  watchLoadAuthor
+  watchLoadAuthor,
+  watchUpdatePost
 } from "./post-saga";
 import { watchFetchAlbums} from './album-saga'
 import { watchFetchTodos } from './todo-saga';
@@ -22,6 +23,7 @@ export default function* rootSaga(): IterableIterator<Object> {
       watchAddPost(),
       watchDeletePost(),
       watchLoadComments(),
-      watchLoadAuthor()
+      watchLoadAuthor(),
+      watchUpdatePost()
     ]);
 }

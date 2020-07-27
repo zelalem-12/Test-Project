@@ -214,6 +214,29 @@ const loadAuthor = (state: AuthorStateType = { loading: false }, action): Author
 };
 
 
+const updatePost = (state: PostStateType = { loading: false }, action): PostStateType => {
+  switch (action.type) {
+    case POSTCONSTANT.POST_UPDATE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case POSTCONSTANT.POST_UPDATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        post: action.payload
+      };
+    case POSTCONSTANT.POST_UPDATE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+};
 
 
  export {
@@ -222,6 +245,6 @@ const loadAuthor = (state: AuthorStateType = { loading: false }, action): Author
    addPost,
    deletePost,
    loadComments,
-   loadAuthor
-
+   loadAuthor,
+   updatePost
  };  

@@ -135,3 +135,16 @@ function* loadAuthor({ payload }): IterableIterator<Object>{
 export function* watchLoadAuthor(): IterableIterator<Object>{
   yield takeLatest(POSTCONSTANT.LOAD_AUTHOR_REQUEST, loadAuthor);
 }
+
+
+function* updatePost({payload}): IterableIterator<Object> {
+  try{
+  const post = yield call(API.updateData, `posts/${payload.id}`, payload.post);
+  yield put(postAction.setPostUpdate(post));
+  } catch(error){
+    yield put(postAction.setPostUpdateError(getErrorMessage(error)))
+  }
+}
+export function* watchUpdatePost(): IterableIterator<Object>{
+  yield takeLatest(POSTCONSTANT.POST_UPDATE_REQUEST, updatePost)
+}

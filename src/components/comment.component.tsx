@@ -1,6 +1,5 @@
 import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
-import { withRouter, RouteComponentProps} from 'react-router-dom'
 
 
 interface CommentType{

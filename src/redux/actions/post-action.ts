@@ -2,7 +2,7 @@ import * as POSTCONSTANT from '../constants/post-constant';
 
 interface PostType {
   id?: number;
-  userId: number,
+  userId?: number,
   title: string;
   body: string
 }
@@ -66,6 +66,14 @@ interface UserType{
 interface UserActionType{
   type: string,
   payload: UserType
+}
+interface updatePostType{
+  id: number,
+  post: PostType
+}
+interface PostUpdateRequestType{
+  type: string,
+  payload: updatePostType
 }
 
 const requestPostList = (): RequestType => ({
@@ -145,6 +153,21 @@ const setLoadAuthorError = (error: string): ErrorType => ({
 });
 
 
+const requestPostUpdate = (data: updatePostType): PostUpdateRequestType => ({
+  type: POSTCONSTANT.POST_UPDATE_REQUEST,
+  payload: data,
+});
+
+const setPostUpdate = (post: PostType): PostActionType => ({
+  type: POSTCONSTANT.POST_UPDATE_SUCCESS,
+  payload: post,
+});
+
+const setPostUpdateError = (error: string): ErrorType => ({
+  type: POSTCONSTANT.POST_UPDATE_FAIL,
+  payload: error
+});
+
 export {
   requestPostList,
   setPostList,
@@ -168,5 +191,9 @@ export {
 
   requestLoadAuthor,
   setLoadAuthor,
-  setLoadAuthorError
+  setLoadAuthorError,
+
+  requestPostUpdate,
+  setPostUpdate,
+  setPostUpdateError
 };

@@ -50,12 +50,25 @@ const deleteData = async (path: string): Promise<ApiDataType> => {
   return data;
 };
 
+const updateData = async (path: string, post: PostType): Promise<PostType> => {
+  const response = await fetch(`${baseUrl}/${path}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(post),
+  });
+    const data = await response.json();
+    if (response.status >= 400) {
+      throw new Error(data.errors);
+    }
+    return data;
+};
+
 
 export {
     fetchData,
     addData,
-    deleteData
+    deleteData,
+    updateData
 };
-
-
-// https://jsonplaceholder.typicode.com/comments?postId=1

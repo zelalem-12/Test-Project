@@ -1,8 +1,10 @@
-import React, {useEffect, MouseEvent} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch } from 'react-redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import Comment from '../components/comment.component';
 import Author from '../components/post-author-component'
+import Modal from '../components/post-update-modal'
 import { 
     requestPostDetail,
     requestPostDelete,
@@ -10,19 +12,13 @@ import {
     requestLoadAuthor
      } from '../redux/actions/post-action'
 
-
-interface PostDetailProps {
-    match: any,
-    history: any
-}
-
 interface PostType {
     userId: number,
     id: number;
     title: string;
     body: string
 }
-interface PostDetailStateType {
+interface PostStateType {
     loading?: boolean,
     post?: PostType,
     error?: string
@@ -79,15 +75,20 @@ interface UserStateType {
   author: UserType,
   error: string
 }
-const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
+const PostDetail: React.FC<RouteComponentProps<{}>> = ({ match, history }) => {
 
+    const [open, setOpen] = useState<boolean>(false);
     const dispatch = useDispatch();
 
-  const postAuthor: UserStateType = useSelector(state => state.postAuthor);
-    const postDetail: PostDetailStateType = useSelector(state => state.postDetail);
+   const postAuthor: UserStateType = useSelector(state => state.postAuthor);
+    const postDetail: PostStateType = useSelector(state => state.postDetail);
     const loadedComments: CommentStateType = useSelector(state => state.loadedComments);
     const postDelete: PostDeleteStateType = useSelector(state => state.postDelete);
   
+    const onClickOpenModal = (e: React.MouseEvent<HTMLButtonElement>): void => {
+     e.preventDefault();
+     setOpen(true);
+    };
 
     const authorHandleCLick = (e: React.MouseEvent<HTMLButtonElement>, userId: number): void => {
       e.preventDefault();
@@ -105,12 +106,15 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
         };
 
     useEffect(() =>{
-        dispatch(requestPostDetail(match.params.id));
+      dispatch(requestPostDetail(match.params.id));
     }, [])
     
    postDelete.deleted &&  setTimeout(() =>  history.push("/"), 1000);
 
     return (
+      <>
+      {
+          open ? <Modal {...postDetail.post} open={open} /> :
       <PostDetailWrapper>
         {postDetail.loading ? (
           <h2>...Loading</h2>
@@ -169,6 +173,10 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
                 >
                   Delete Post
                 </Button>
+                  <Button
+                     onClick={onClickOpenModal}>
+                       Update Post
+                   </Button>
               </ButtonWrapper>
               {loadedComments.loading ? (
                 <span style={{ fontSize: "1.5rem" }}>...Loading Comments</span>
@@ -190,10 +198,12 @@ const PostDetail: React.FC<PostDetailProps> = ({ match, history }) => {
           )
         )}
       </PostDetailWrapper>
+        }
+      </>
     );
 }
 
-export default PostDetail;
+export default withRouter(PostDetail);
 
 
 const PostDetailWrapper = styled.div`

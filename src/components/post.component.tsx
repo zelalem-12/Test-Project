@@ -68,7 +68,7 @@ const PostWrapper = styled.div`
     opacity: 0.7;
     position: absolute;
     top: 220px;
-    background-color:white;                     
+    background-color:white;         
   }
    &:hover{
     .custom-button {
