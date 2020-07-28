@@ -1,7 +1,10 @@
 import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
+import {
+  layout, space, border, typography, flexbox
+} from 'styled-system';
 import { withRouter, RouteComponentProps} from 'react-router-dom';
-import CustomButton from '../components/CustomButton';
+import CustomButton from './CustomButton';
 
 
 interface PostType{
@@ -20,12 +23,30 @@ const Post: React.FC<RouteComponentProps<{}> &  PostType> = ({id, title, body,hi
     }
 
     return (
-      <PostWrapper >
-          <div className="post-data">
-              <span className="title">{title}</span>
-              <span className="body">{body}</span>
+      <PostWrapper 
+        width={[1, 1 / 2, 1 / 4]}
+        display='flex'
+        flexDirection='column'
+        alignItems='center'
+        justifyContent='space-between'
+        border='1px solid'
+        p='0.5em'
+        m='2em'
+        p={[2, 3]}
+        m={[2, 3]}
+        fontFamily='Times New Roman'
+       >
+        <div 
+          display='flex'
+          flexDirection='column'
+          justifyContent='space-between'
+        >
+          <Title
+          >{title}</Title>
+          <Body  >{body}</Body>
         </div>
-        <CustomButton className="custom-button" onClick={handleCLick} >
+        <CustomButton 
+        onClick={handleCLick} >
               See more
         </CustomButton>
     </PostWrapper>
@@ -35,51 +56,32 @@ const Post: React.FC<RouteComponentProps<{}> &  PostType> = ({id, title, body,hi
 export default withRouter(Post);
 
 
-const PostWrapper = styled.div`
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  align-items: center;
-  justify-conten: center;
-  position: relative;
-  border: solid black 1px;
-  padding: 1rem;
-  margin: 1rem;
-  & * {
-    font-family: "Times New Roman", Times, serif;
-  }
-  & .post-data{
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-conten: center;
-      .title{
-        text-transform: uppercase;
-        margin: 1rem 0;
-        font-family: bold;
-      }
-        .body{
-        text-transform: capitalize;
-      }
-  }
-  & .custom-button{
-    width: 80%;
-    opacity: 0.7;
-    position: absolute;
-    top: 220px;
-    background-color:white;         
-  }
+const PostWrapper = styled.h4`
+${layout}
+${border}
+${space}
+${typography}
+${flexbox}
    &:hover{
-    .custom-button {
-      display: flex;
+    button {
       background-color:black;  
       color: white;
     }
    }
 `
 
+const Title = styled.span`
+text-transform: uppercase;
+margin: 0 1rem;
+`
 
+const Body = styled.p`
+&::first-letter{
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+`
 
 
 

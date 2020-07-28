@@ -1,6 +1,10 @@
 import React, { useState, useEffect, MouseEvent } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
+
 import styled from 'styled-components';
+import {
+    layout, color, flexbox, position, shadow, space, typography
+} from 'styled-system'
 
 import CustomButton from '../components/CustomButton';
 import FormInput from '../components/FormInput';
@@ -41,13 +45,21 @@ const AddPost = () => {
         });
     }
     return (
-        <PostAdd  className="createProduct">
+        <PostAdd 
+          width={[1, 1 / 2, 1 / 4]}>
             {
-                postAdd.loading? <h1>...Loading</h1> :
-                    postAdd.error ? <h1 style={{ color: 'red' }}>Ops! Something has gon rong</h1>:
+                postAdd.loading? 
+                    <h1 fontWeight='bold' width ={1} textAlign='center'>
+                        Loading...</h1> :
+                    postAdd.error ? 
+                        <h3 fontWeight='bold' color="#ff0000" width={1} textAlign='center'>
+                            Ops! Something has gon wrong</h3>:
                     <>
                      {
-                     postAdd.post && <span style={{color: 'green'}}>Post added successfully!</span>
+                     postAdd.post && 
+                     <h3
+                       fontWeight='bold' color="#00ff00" width={1} textAlign='center'
+                        >Post added successfully!</h3> 
                      }
                     <form onSubmit={submitHandler} className="form">
                         <FormInput
@@ -79,8 +91,8 @@ export default AddPost
 
 
 const PostAdd = styled.div`
-width: 50%;
-margin: 100px auto;
-
-
+  ${layout}
+  ${color}
+  ${typography}
+  margin: 100px auto 0;
 `

@@ -1,7 +1,9 @@
 import React, { useState} from 'react';
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
-import {color, fontSize, space} from 'styled-system';
+import { 
+  layout, color, flexbox, position, shadow,  space, typography
+    } from 'styled-system'
 
 
 const Header: React.FC = () => {
@@ -19,26 +21,36 @@ const Header: React.FC = () => {
       }
   });
     return (
-      <Wrapper color={color} fontSize={18} mb={20}>
-        <div>Test Project</div>
-        <NavLink color={color} activeStyle={{
-          fontWeight: "bold",
-          color: "#07e4d5"
-        }} to="/add-post">Add Post</NavLink>
-        <NavLink color={color} exact activeStyle={{
-          fontWeight: "bold",
-          color: "#07e4d5"
-        }} to="/posts">Posts</NavLink>
+      <Wrapper 
+        bg='#ffffff'
+        width={1}
+        height={40}
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        position='fixed'
+        top='0'
+        right='0'
+        bottom='0'
+        left='0'
+        boxShadow="medium"
+        zIndex={100}
+       >
+        <NavLink 
+          color='#000000' 
+          activeStyle={{ fontWeight: "bold", color: "#07e4d5" }}
+        to="/add-post">Add Post</NavLink>
+        <NavLink color='#000000' 
+          activeStyle={{ fontWeight: "bold", color: "#07e4d5" }}
+        to="/posts">Posts</NavLink>
         
-        <NavLink color={color} activeStyle={{
-          fontWeight: "bold",   
-          color: "#07e4d5"
-        }} to="/albums">Albums</NavLink>
+        <NavLink color='#000000' 
+          activeStyle={{ fontWeight: "bold", color: "#07e4d5" }}
+         to="/albums">Albums</NavLink>
 
-        <NavLink color={color} activeStyle={{
-          fontWeight: "bold",
-          color: "#07e4d5"
-        }} to="/todos">Todos</NavLink>
+        <NavLink color='#000000' 
+        activeStyle={{fontWeight: "bold", color: "#07e4d5"}}
+         to="/todos">Todos</NavLink>
       </Wrapper>
     );
 };
@@ -46,24 +58,16 @@ const Header: React.FC = () => {
 export default Header;
 
 const Wrapper = styled.nav`
+  ${layout}
   ${color}
-  ${fontSize}
+  ${flexbox}
+  ${position}
+  ${shadow}
   ${space}
-  z-index: 1000;
-  width: 100%;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  & * {
-    margin: 0 5px;
+  ${typography}
+  * {
+    margin: 0 0.5rem;
     text-decoration: none;
-  }
-  & div:first-child {
-    margin-right: auto;
   }
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   & a:hover{

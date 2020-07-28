@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { 
+    layout, space, border, typography, flexbox, textStyle
+ } from 'styled-system';
 
 
 interface TodoType {
@@ -11,11 +14,28 @@ interface TodoType {
 const Todo: React.FC<TodoType> = ({ userId, title }) => {
 
     return (
-        <TodoWrapper>
-            <div className="todo-data">
-                <span className="title">{title}</span>
-                <span className="Owner"><strong>Done By:</strong>{userId}</span>
-            </div>
+        <TodoWrapper
+        width={[1, 1 / 2, 1 / 4]}
+        display='flex'
+        flexDirection='column'
+        alignItems='center'
+        justifyContent='space-between'
+         border='1px solid'
+         p='0.5em'
+         m='2em'
+         p={[2,3]}
+        m={[2, 3]}
+        fontFamily='Times New Roman'
+        >
+                <Title
+                  fontWeight='bold'
+                    mx='auto'
+                    my={[0.5, 1, 3]}
+                >{title}</Title>
+                <span 
+                    mx='auto'
+                    my={[0.5, 1, 3]}
+                ><strong>Done By:</strong>{userId}</span>
         </TodoWrapper>
     )
 }
@@ -24,29 +44,13 @@ export default Todo;;
 
 
 const TodoWrapper = styled.div`
-    width: 25%;
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  align-items: center;
-  justify-conten: center;
-  position: relative;
-  border: solid black 1px;
-  padding: 1rem;
-  margin: 1rem;
-  & * {
-    font-family: "Times New Roman", Times, serif;
-  }
-  & .todo-data{
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-conten: center;
-      .title{
-        text-transform: uppercase;
-        margin: 1rem 0;
-        font-family: bold;
-      }
-  }
+${layout}
+${border}
+${space}
+${typography}
+${flexbox}
    }
+`
+const Title = styled.span`
+text-transform: uppercase;
 `

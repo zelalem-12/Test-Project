@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
+import {
+    flexbox, layout, typography
+} from 'styled-system'
 import { requestTodoList } from '../redux/actions/todo-action'
 import Todo from '../components/todo.component';
 
@@ -30,9 +33,24 @@ const Todos: React.FC = () => {
 
 
     return (
-        <TodosWrapper>
+        <TodosWrapper
+            width={0.9}
+            display='flex'
+            flexWrap='wrap'
+        >
             {
-                todoList.loading ? (<h2>...Loading</h2>) :
+                todoList.loading ? 
+                <h2
+                    textAlign='center'
+                    letterSpacing='0.1em'
+                >Loading...</h2>:
+                todoList.error ?
+                    <h2
+                        textAlign='center'
+                        letterSpacing='0.1em'
+                        color='red'
+                    >Opps something has gone wrong</h2>:
+                    
                     todoList.todos.map((todo: TodoType): React.ReactNode => (
                         <Todo key={todo.id} {...todo} />
                     ))
@@ -44,9 +62,8 @@ const Todos: React.FC = () => {
 export default Todos;
 
 const TodosWrapper = styled.div`
-width: 90%;
-margin: 60px auto;
-display: flex;
-flex-wrap: wrap;
-felx-gap: 20px;
+    ${flexbox}
+    ${layout}
+    ${typography}
+    margin: 60px auto;
 `

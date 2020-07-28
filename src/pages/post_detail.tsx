@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import {
+  layout, color, flexbox, position, shadow, space, typography
+} from 'styled-system'
 import Comment from '../components/comment.component';
 import Author from '../components/post-author-component'
 import Modal from '../components/post-update-modal'
@@ -115,13 +118,29 @@ const PostDetail: React.FC<RouteComponentProps<{}>> = ({ match, history }) => {
       <>
       {
           open ? <Modal {...postDetail.post} open={open} /> :
-      <PostDetailWrapper>
+      <PostDetailWrapper
+        width={1}
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        flexDirection='column'
+        p={[2,3]}
+
+      >
         {postDetail.loading ? (
           <h2>...Loading</h2>
         ) : (
           postDetail.post && (
             <>
-              <PostDetailData>
+              <PostDetailData
+              width={0.8}
+              display='flex'
+              alignItems='center'
+              justifyContent='center'
+              flexDirection='column'
+              p={[2, 3]}
+
+              >
                 <h4>{postDetail.post.title.toLocaleUpperCase()}</h4>
                 <p>{postDetail.post.body}</p>
               </PostDetailData>
@@ -152,14 +171,34 @@ const PostDetail: React.FC<RouteComponentProps<{}>> = ({ match, history }) => {
                         </>
                     ) 
               }
-              <ButtonWrapper>
+              <ButtonWrapper
+                        width={0.8}
+                        display='flex'
+                        alignItems='center'
+                        justifyContent='center'
+              >
                 <Button 
+                height='3em'
+                width='20%'
+                bg='#0a6783'
+                color='white'
+                textAlign='center'
+
+                fontSize={[10, 12, 14,16]}
+                fontWeight='bold'
                   onClick={(event) =>
                       authorHandleCLick(event, postDetail.post.userId)
                     }
                   >
                     Author</Button>
                 <Button
+                      height='3em'
+                      width='20%'
+                      bg='#0a6783'
+                      color='white'
+                      fontSize={[10, 12, 14, 16]}
+                      fontWeight='bold'
+                      textAlign='center'
                   onClick={(event) =>
                     commentHandleCLick(event, postDetail.post.id)
                   }
@@ -167,13 +206,28 @@ const PostDetail: React.FC<RouteComponentProps<{}>> = ({ match, history }) => {
                   load comments
                 </Button>
                 <Button
+                      height='3em'
+                      width='20%'
+                      bg='#0a6783'
+                      color='white'
+                      fontSize={[10, 12, 14, 16]}
+                      fontWeight='bold'
+                      textAlign='center'
                   onClick={(event) =>
                     deleteHandleCLick(event, postDetail.post.id)
                   }
                 >
                   Delete Post
-                </Button>
+                </Button
+                >
                   <Button
+                      height='3em'
+                      width='20%'
+                      bg='#0a6783'
+                      color='white'
+                      fontSize={[10, 12, 14, 16]}
+                      fontWeight='bold'
+                      textAlign='center'
                      onClick={onClickOpenModal}>
                        Update Post
                    </Button>
@@ -186,7 +240,9 @@ const PostDetail: React.FC<RouteComponentProps<{}>> = ({ match, history }) => {
                 </span>
               ) : (
                 loadedComments.comments && (
-                  <CommentListWrapper>
+                  <CommentListWrapper
+                  width={1, 1/2, 1/4}
+                  >
                     {
                       loadedComments.comments.map((comment: CommentType) => (
                         <Comment key={comment.id} {...comment} />
@@ -207,35 +263,29 @@ export default withRouter(PostDetail);
 
 
 const PostDetailWrapper = styled.div`
-width: 100%;
-margin: 100px auto;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-conten: center;
-padding: 8px;
+${layout}
+${space}
+${flexbox}
 `
 
 const ButtonWrapper = styled.div`
-  width: 70%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+${layout}
+${flexbox}
   & * {
       margin: 1rem
   }
 `;
 const Button = styled.button`
-  height: 2rem;
-  width: 20%;
-  background-color: #0a6783;
-  color: white;
+${layout}
+${color}
+${typography}
+
   text-transform: uppercase;
-  fon-size: 0.5rem;
-  font-weight: bolder;
+
   border: none;
   cursor: pointer;
  text-align: center;
+
   &:hover {
     background-color: white;
     color: black;
@@ -244,6 +294,9 @@ const Button = styled.button`
 `;
 
 const PostDetailData = styled.div`
+${space}
+${layout}
+${flexbox}
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -254,6 +307,6 @@ const PostDetailData = styled.div`
 `;
 
 const CommentListWrapper = styled.div`
-width:50%;
+${layout}
 margin: 5rem auto;
 `

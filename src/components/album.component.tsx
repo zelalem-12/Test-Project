@@ -1,7 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import CustomButton from '../components/CustomButton';
+import styled from 'styled-components';
+import {
+    layout, space, border, typography, flexbox, textStyle
+} from 'styled-system';
 
 
 interface AlbumType{
@@ -13,11 +15,28 @@ interface AlbumType{
 const Album: React.FC<RouteComponentProps<{}> & AlbumType> = ({userId, title, history}) => {
 
     return (
-        <AlbumWrapper >
-            <div className="album-data">
-               <span className="title">{title}</span>
-               <span className ="Owner"><strong>Owner:</strong>{userId}</span>
-            </div>
+        <AlbumWrapper
+            width={[1, 1 / 2, 1 / 4]}
+            display='flex'
+            flexDirection='column'
+            alignItems='center'
+            justifyContent='space-between'
+            border='1px solid'
+            p='0.5em'
+            m='2em'
+            p={[2, 3]}
+            m={[2, 3]}
+            fontFamily='Times New Roman'
+            > 
+               <Title
+                    fontWeight='bold'
+                    mx='auto'
+                    my={[0.5, 1, 3]}
+               >{title}</Title>
+               <span 
+                    mx='auto'
+                    my={[0.5, 1, 3]}
+                    ><strong>Owner:</strong>{userId}</span>
         </AlbumWrapper >
     )
 }
@@ -26,29 +45,18 @@ export default withRouter(Album);
 
 
 const AlbumWrapper = styled.div`
-    width: 25%;
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  align-items: center;
-  justify-conten: center;
-  position: relative;
-  border: solid black 1px;
-  padding: 1rem;
-  margin: 1rem;
-  & * {
-    font-family: "Times New Roman", Times, serif;
-  }
-  & .album-data{
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-conten: center;
-      .title{
-        text-transform: uppercase;
-        margin: 1rem 0;
-        font-family: bold;
-      }
-  }
+${layout}
+${border}
+${space}
+${layout}
+${border}
+${space}
+${typography}
+${flexbox}
+${textStyle}
    }
+`
+
+const Title = styled.span`
+text-transform: uppercase;
 `

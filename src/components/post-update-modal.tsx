@@ -2,6 +2,7 @@ import React, {useState, MouseEvent} from 'react';
 import {useSelector, useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components'
+import {layout, flexbox, position,  color} from 'styled-system'
 
 import FormInput from './FormInput';
 import CustomButton from './CustomButton';
@@ -29,15 +30,12 @@ const Modal: React.FC<RouteComponentProps<{}> & PropTypes> = ({open,id, title, b
       const updatePost: postUpdateStateType = useSelector(state => state.updatePost)
       const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
         event.preventDefault();
-        setPost((post) => {
-          return { ...post, title: "", body: "" };
-        });
         event.persist();
         setPost((post) => {
           return { ...post, [event.target.name]: [event.target.value] };
         });
       };
-      console.log(updatePost)
+
 
       const submitHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
         event.preventDefault(); 
@@ -48,12 +46,24 @@ const Modal: React.FC<RouteComponentProps<{}> & PropTypes> = ({open,id, title, b
       };
   updatePost.post && setTimeout(() => history.push(`/`), 1000);
   return (
-    <ModalWrapper>
+    <ModalWrapper
+      bg='#ffffff'
+      width={0.9}
+      display='flex'
+      alignItems='center'
+      justifyContent='center'
+      position='fixed'
+      top ='20vh'
+      left= '5 %'
+      flexDirection='column'
+      zIndex={1000}
+    >
      <div>
         {
+          
           updatePost.loading ? <span style={{ fontSize: "1.5rem" }}>...Updating the Post </span> :
             updatePost.error ? <span style={{ fontSize: "1rem", color: "red" }}>
-              Ops unable to delete this post
+              Ops unable to update this post
             </span> :
               updatePost.post && <span style={{ fontSize: "1rem", color: "red" }}>
                 POst Updated Successfully
@@ -87,16 +97,10 @@ export default withRouter(Modal);
 
 
 const ModalWrapper = styled.div`
-  width: 90%;
-  background: white;
-  position: fixed;
-  top: 20vh;
-  left: 5%;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
+  ${layout}
+  ${flexbox}
+  ${position}
+  ${color}
   & > *{
     width: 75%;
   }
